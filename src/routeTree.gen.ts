@@ -14,6 +14,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as UploadRouteImport } from './routes/upload'
+import { Route as ArtifactIdRouteImport } from './routes/artifact.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const UploadRoute = UploadRouteImport.update({
   path: '/upload',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArtifactIdRoute = ArtifactIdRouteImport.update({
+  id: '/artifact/$id',
+  path: '/artifact/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/map': typeof MapRoute
   '/upload': typeof UploadRoute
+  '/artifact/$id': typeof ArtifactIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/map': typeof MapRoute
   '/upload': typeof UploadRoute
+  '/artifact/$id': typeof ArtifactIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,21 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/map': typeof MapRoute
   '/upload': typeof UploadRoute
+  '/artifact/$id': typeof ArtifactIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/gallery' | '/map' | '/upload'
+  fullPaths: '/' | '/auth' | '/gallery' | '/map' | '/upload' | '/artifact/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/gallery' | '/map' | '/upload'
-  id: '__root__' | '/' | '/auth' | '/gallery' | '/map' | '/upload'
+  to: '/' | '/auth' | '/gallery' | '/map' | '/upload' | '/artifact/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/gallery'
+    | '/map'
+    | '/upload'
+    | '/artifact/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +93,7 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   MapRoute: typeof MapRoute
   UploadRoute: typeof UploadRoute
+  ArtifactIdRoute: typeof ArtifactIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +133,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UploadRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/artifact/$id': {
+      id: '/artifact/$id'
+      path: '/artifact/$id'
+      fullPath: '/artifact/$id'
+      preLoaderRoute: typeof ArtifactIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +149,7 @@ const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRoute,
   MapRoute: MapRoute,
   UploadRoute: UploadRoute,
+  ArtifactIdRoute: ArtifactIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
