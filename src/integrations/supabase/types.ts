@@ -14,7 +14,113 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      artifacts: {
+        Row: {
+          confidence: string | null
+          created_at: string
+          culture: string | null
+          description: string
+          era: string | null
+          id: string
+          image_url: string
+          latitude: number | null
+          longitude: number | null
+          materials: string | null
+          origin_place: string | null
+          significance: string | null
+          title: string
+          user_id: string
+          user_note: string | null
+        }
+        Insert: {
+          confidence?: string | null
+          created_at?: string
+          culture?: string | null
+          description: string
+          era?: string | null
+          id?: string
+          image_url: string
+          latitude?: number | null
+          longitude?: number | null
+          materials?: string | null
+          origin_place?: string | null
+          significance?: string | null
+          title: string
+          user_id: string
+          user_note?: string | null
+        }
+        Update: {
+          confidence?: string | null
+          created_at?: string
+          culture?: string | null
+          description?: string
+          era?: string | null
+          id?: string
+          image_url?: string
+          latitude?: number | null
+          longitude?: number | null
+          materials?: string | null
+          origin_place?: string | null
+          significance?: string | null
+          title?: string
+          user_id?: string
+          user_note?: string | null
+        }
+        Relationships: []
+      }
+      comments: {
+        Row: {
+          artifact_id: string
+          body: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          artifact_id: string
+          body: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          artifact_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_artifact_id_fkey"
+            columns: ["artifact_id"]
+            isOneToOne: false
+            referencedRelation: "artifacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string
+          id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string
+          id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string
+          id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
